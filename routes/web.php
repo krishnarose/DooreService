@@ -1,17 +1,26 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 Auth::routes();
+Route::get('/email/verify', [App\Http\Controllers\Email\EmailVerificationController::class, 'notice'])->middleware('auth')->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', [App\Http\Controllers\Email\EmailVerificationController::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
+Route::post('/email/verification-notification', [App\Http\Controllers\Email\EmailVerificationController::class, 'resend'])->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
 //user route
-Route::middleware(['auth', 'user-access:user'])->group(function () {
-    Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+Route::prefix('user')->middleware(['auth', 'email-verify', 'user-access:user'])->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\client\DashboardController::class, 'index'])->name('user.index');
 });
 
 

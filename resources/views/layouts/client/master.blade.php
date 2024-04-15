@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
     @include('layouts.client.head')
+    <title>
+        @yield('title')
+    </title>
 </head>
 <body>
 

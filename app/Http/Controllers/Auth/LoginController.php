@@ -26,7 +26,16 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/user/dashboard';
+    public function authenticated(){
+        $isEmailVerified = Auth::user()->email_verified_at;
+        if(is_null($isEmailVerified)){
+            return redirect()->route('verification.notice')->with('message', 'An email is already to to your email address. Please check your email account.');
+        }
+        else{
+            return redirect('/user/dashboard')->with('message', 'Login successful!');
+        }
+    }
 
     /**
      * Create a new controller instance.
@@ -53,7 +62,7 @@ class LoginController extends Controller
             } else if(auth()->user()->type == 'super-admin') {
                 return redirect()->route('superadmin.dashboard');
             } else {
-                return redirect()->route('dashboard');
+                return redirect()->route('user.index');
             }
         } else {
             return redirect()->route('login')->with('error', 'email or password is incorrect.');
