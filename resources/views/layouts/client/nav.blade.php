@@ -1,51 +1,53 @@
-<nav class="bg-white p-4 shadow-md">
-    <div class="container mx-auto flex justify-between items-center">
-        <!-- Logo -->
-        <a href="#">
-            <img src="https://res.cloudinary.com/urbanclap/image/upload/t_high_res_category/w_144,dpr_1,fl_progressive:steep,q_auto:low,f_auto,c_limit/images/growth/home-screen/1687285683825-e6cf23.jpeg"
-                alt="" class="ml-16 cursor-pointer">
-        </a>
-
-        <!-- Mobile menu button -->
-        <button id="mobile-menu-btn" class="text-black focus:outline-none md:hidden">
-            {{-- <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
-                </path>
-            </svg> --}}
-        </button>
-
-        <!-- Desktop menu -->
-        @if (Auth::user())
-
-            <div class="relative inline-block">
-                <button id="profileBtn" class="focus:outline-none">
-                    <div class="h-10 w-10 rounded-full bg-gray-500 flex items-center justify-center"><img
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-lunvQ7aMq702rq3jKpVbPfRN-Srb52eiow&s"
-                            alt="" class="rounded-full">
-
-                    </div>
-                </button>
-                <div id="profileDropdownContent"
-                    class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
-                </div>
-            </div>
-        @else
-
-
-        <div class=" md:flex space-x-4 items-center">
-            <a href="#"
-                class="text-black bg-white shadow-lg hover:bg-gray-100 px-7 py-2 rounded-md font-semibold">Login</a>
-
-           
+<nav class="sticky top-0 z-30 bg-zinc-100 p-4 shadow-md flex items-center justify-between" style="height: 60px;">
+    <div class="flex items-center gap-5">
+        <div style="z-index: 1;"> <!-- Increase z-index to ensure logo is on top -->
+            <img src="{{ asset('client/img/log.jpeg') }}" alt="" class="w-[70px]">
+        </div>
+        <div class="text-2xl font-bold  ">
+            <a href="{{url('/')}}" class="text-3xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">Door Service</a>
 
         </div>
-
-        @endif
     </div>
+   <div class="font-semibold text-2xl space-x-2 tracking-wide ">
+    <a href="">Home</a>
+    <a href="">Gallery</a>
+    <a href="">Contact</a>
+   </div>
 
+    @if (Auth::user())
+
+        <div class="relative mr-2" style="z-index: 2;"> <!-- Increase z-index to ensure dropdown is on top -->
+            <img src="{{ asset('client/img/log.jpeg') }}" alt="" class="w-[70px] rounded-[50px]" id="home-link">
+            <div id="dropdown" class="hidden absolute top-full left-0 bg-white border border-gray-200 max-w-xs rounded-xl">
+                <ul>
+                    <a href="" class="text-xl font-semibold ">Profile</a>
+                    <li class="text-xl font-semibold ">Setting </li>
+                    <a href="{{ route('logout') }} " onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();" class="text-xl font-semibold ">Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                    class="d-none">
+                    @csrf
+                </form>
+                </ul>
+            </div>
+        </div>
+    @else
+        <div class="tracking-wide space-x-2 ">
+            <a href="{{ route('login') }}" class="text-xl font-semibold bg-blue-500 text-white px-4 py-2 rounded-xl shadow-md hover:bg-blue-600 crsur-pointer "> Login</a>
+
+        </div>
+    @endif
 
 </nav>
+
+<script>
+    // JavaScript code to handle dropdown visibility
+    const dropdown = document.getElementById('dropdown');
+    document.getElementById('home-link').addEventListener('mouseenter', function() {
+        dropdown.classList.remove('hidden');
+    });
+
+    dropdown.addEventListener('mouseleave', function() {
+        dropdown.classList.add('hidden');
+    });
+</script>

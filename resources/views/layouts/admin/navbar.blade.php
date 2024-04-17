@@ -13,7 +13,7 @@
         </button>
 
         <!-- Brand -->
-        <a href="{{route('admin.dashboard')}}"
+        <a href="{{ route('admin.dashboard') }}"
             class="inline-block text-2xl font-bold tracking-wider uppercase bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500">
             Doore Service
         </a>
@@ -122,7 +122,8 @@
                         class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
                         Settings
                     </a>
-                    <a class="dropdown-item block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary" href="{{ route('logout') }}"
+                    <a class="dropdown-item block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary"
+                        href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
