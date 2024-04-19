@@ -1,7 +1,8 @@
 @extends('layouts.client.master')
 @section('title', 'email-verification page')
 @section('content')
-    <div class="flex  flex-col items-center">
+<div class="h-screen">
+    <div class="flex  flex-col items-center ">
         <img class="" src="{{ asset('videos/email.gif') }}" alt="Email Verification GIF">
         <center class="text-2xl p-5 mt-4  ">
             <span class="font-extrabold bg-gray-200 px-4 py-2 rounded-xl "> Verify Your Email Address</span>
@@ -29,6 +30,7 @@
         <button type="submit" class="text-2xl text-blue-500 animate-pulse"> {{ __('click here to request another') }}</button>.
     </form>
 
+</div>
 </div>
 
 
